@@ -1,4 +1,4 @@
-# Meetup marzo 2022
+# Estructuras de datos: Matrices, Listas y Dataframes
 
 ¡Les damos la bienvenida!
 
