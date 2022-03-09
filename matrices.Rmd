@@ -7,6 +7,7 @@ date: "2022/03/10"
 output:
   xaringan::moon_reader:
       css: [rladies, rladies-fonts ]
+      self-contained: true
       nature:
         ratio: '16:9'
       
