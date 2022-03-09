@@ -19,11 +19,7 @@ Cristina es Doctora en Ciencias en Biotecnología. Su principal interés es la d
 Para descargar este repositorio, da click en el botón Code > Download zip. Si lo prefieres, puedes usar el comando git clone < url_repositorio > desde tu terminal para clonar el repositorio.
 
 
-## Temario
-
-
-
-## Comocimientos previos requeridos
+## Conocimientos previos requeridos
 
 Dirigido a principiantes en el uso de R y a quienes busquen reforzar los conceptos fundamentales de este lenguaje de programación.
 
