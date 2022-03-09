@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estructura de datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristina Domínguez-Mendoza" />
+    <link href="matrices_cadm_joss_files/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="matrices_cadm_joss_files/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Estructura de datos
+## Matrices, Listas y Dataframes
+### Cristina Domínguez-Mendoza
+### 2022/03/10
+
+---
+
+class: inverse, center, middle
+
+# R 
+
+##Es un lenguaje de programación funcional y orientado a objetos
+
+---
+
+&lt;img src="./figs/objetos en R.png" width="85%" style="display: block; margin: auto;" /&gt;
+---
+# Matriz
+
+Una matriz es una estructura de datos de dos dimensiones que contiene variables del mismo tipo. Por ejemplo: 
+
+- Cadena de caracteres 
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+## [1,] "R"  "l"  "a"  "d"  "i"  "e"  "s" 
+## [2,] "C"  "u"  "e"  "r"  "n"  "a"  "v" 
+## [3,] "a"  "c"  "a"  "R"  "s"  "t"  "a" 
+## [4,] "t"  "R"  "l"  "a"  "d"  "i"  "e"
+```
+- Numérico 
+
+```
+##        [,1] [,2] [,3] [,4] [,5]
+## uno       1    2    3    4    5
+## dos       6    7    8    9   10
+## tres     11   12   13   14   15
+## cuatro   16   17   18   19   20
+## cinco    21   22   23   24   25
+```
+- Lógico
+
+```
+##       [,1]  [,2]
+## [1,] FALSE  TRUE
+## [2,]  TRUE FALSE
+```
+---
+#¿Cómo crear una matriz en R?
+-  Función: matrix()
+-  Función: cbind()/rbind()
+-  Función: frame_matrix()
+-  Importar bases de datos
+-  Coerción de objetos: as.matrix()
+ 
+---
+#Función: matrix ()
+### Sintaxis
+
+
+```r
+matrix(data = NA, #objeto tipo vector
+       nrow = 1,  # filas
+       ncol = 1,  # columnas
+       byrow = FALSE, # dirección de llenado
+       dimnames = NULL) # lista con el nombre de las filas
+```
+
+```
+##      [,1]
+## [1,]   NA
+```
+###Ejemplo
+
+```r
+datos &lt;- c(1:6)      #crear un objeto de tipo vector
+matrix(datos, 3,2)
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+```
+---
+### Cambiar las dimensiones de la matriz
+
+
+```r
+matrix(datos, 3,2)
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+```
+
+```r
+matrix(datos, 2,3)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+### Llenado de matrices por filas
+
+```r
+matrix(datos,ncol = 2, byrow = TRUE) #cambiar a TRUE
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6
+```
+
+---
+
+#Función: cbind
+### Sintaxis
+
+
+```r
+cbind(datos, NA )  
+```
+
+```
+##      datos   
+## [1,]     1 NA
+## [2,]     2 NA
+## [3,]     3 NA
+## [4,]     4 NA
+## [5,]     5 NA
+## [6,]     6 NA
+```
+
+```r
+rbind(datos, NA)
+```
+
+```
+##       [,1] [,2] [,3] [,4] [,5] [,6]
+## datos    1    2    3    4    5    6
+##         NA   NA   NA   NA   NA   NA
+```
+---
+
+Paso 1.- Crear los vectores
+
+```r
+x &lt;- c(2, 7, 3, 6, 1)
+y &lt;- c(3, 7, 3, 5, 9)
+```
+
+Paso 2.- Combinamos objetos de clase vector, por columnas
+
+```r
+cbind(x, y)            
+```
+
+```
+##      x y
+## [1,] 2 3
+## [2,] 7 7
+## [3,] 3 3
+## [4,] 6 5
+## [5,] 1 9
+```
+
+o... Combinamos por filas
+
+```r
+rbind(x, y)
+```
+
+```
+##   [,1] [,2] [,3] [,4] [,5]
+## x    2    7    3    6    1
+## y    3    7    3    5    9
+```
+
+---
+###Agregar nombres 
+A las filas, mediante la función rownames()
+
+```r
+un_vector&lt;- c(4, 5, 1, 10, 8, 3)
+B &lt;- matrix(un_vector,nrow = 2,ncol = 3, byrow = TRUE)
+
+rownames(B)&lt;- c("fila1", "fila2")
+B
+```
+
+```
+##       [,1] [,2] [,3]
+## fila1    4    5    1
+## fila2   10    8    3
+```
+
+Agregar nombres a las columnas usando la función colnames()
+
+```r
+colnames(B) &lt;- c("columna 1", "columna 2", "columna 3")
+B
+```
+
+```
+##       columna 1 columna 2 columna 3
+## fila1         4         5         1
+## fila2        10         8         3
+```
+---
+
+###Atributos
+
+
+
+```r
+attributes(B)
+```
+
+```
+## $dim
+## [1] 2 3
+## 
+## $dimnames
+## $dimnames[[1]]
+## [1] "fila1" "fila2"
+## 
+## $dimnames[[2]]
+## [1] "columna 1" "columna 2" "columna 3"
+```
+
+  - dimensiones
+
+```r
+dim(B)
+```
+
+```
+## [1] 2 3
+```
+
+---
+
+###Funciones más usadas en matrices
+
+
+|FUNCION               |SIGNIFICADO                        |
+|:---------------------|:----------------------------------|
+|dim(), nrow(), ncol() |Número de filas/columnas           |
+|diag()                |Diagonal de una matriz             |
+|*                     |Multiplicación elemento a elemento |
+|%*%                   |Producto matricial                 |
+|cbind(), rbind()      |Combinar columnas y filas          |
+|t()                   |Matriz traspuesta                  |
+|solve(A)              |Inverse de una matriz AAA          |
+|solve(A, b)           |Solución de Ax=bAx=bAx=b           |
+|eigen()               |Eigenvalues y eigenvectors         |
+---
+
+## Selección 
+### Con el índice interno
+Se accede a los elementos dentro de una matriz llamándola por su nombre y posteriormente usando el índice interno entre corchetes.
+Nótese que del lado izquierdo del corchete se llaman a las observaciones, del lado derecho a las variables
+
+matriz[izquierda, derecha]   
+matriz[ obs  , var       ]   
+matriz[ filas, columnas  ]  
+
+&lt;img src="./figs/obs_var.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+###Ejemplo
+Dada la siguiente matriz...
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    8    3
+## [2,]    5    1    2
+```
+
+
+```r
+#Elegir el primer elemento de la primera columna
+my_matrix[1, 1] 
+```
+
+```
+## [1] 1
+```
+
+```r
+# Elegir el elemento de la segunda fila y tercer columna
+my_matrix[2, 3] 
+```
+
+```
+## [1] 2
+```
+
+---
+#Acceso a los elementos de las matrices en R
+
+
+```r
+#Elegir todos los elementos de la primera fila
+my_matrix
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    8    3
+## [2,]    5    1    2
+```
+
+```r
+my_matrix[1, ]
+```
+
+```
+## [1] 1 8 3
+```
+
+```r
+#Elegir todos los elementos de la primera columna
+my_matrix[, 2] 
+```
+
+```
+## [1] 8 1
+```
+
+```r
+#Elegir primera y segunda columna, primera fila
+my_matrix[1, 1:2] 
+```
+
+```
+## [1] 1 8
+```
+---
+
+##Acceso a los elementos de las matrices en R
+
+
+```r
+#Primera y tercera columna, segunda fila
+my_matrix[2, c(1, 3)]
+```
+
+```
+## [1] 5 2
+```
+
+```r
+#Todas las columnas excepto la segunda
+my_matrix[, -2]
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    5    2
+```
+
+```r
+# ültima fila de una matriz
+my_matrix[nrow(my_matrix), ] 
+```
+
+```
+## [1] 5 1 2
+```
+
+```r
+# Última columna de una matriz
+my_matrix[, ncol(my_matrix)] 
+```
+
+```
+## [1] 3 2
+```
+---
+#Selección 
+### Por nombres
+Cuando las variables y las filas de tu matriz están nombradas (headers), puedes utilizar estos nombres en lugar de la indexación interna.
+
+```r
+objeto_vector&lt;-c(5, 3, 2, 52, 34, 12)
+nombre_matriz &lt;- matrix(objeto_vector, 
+                        nrow = 2, 
+                        ncol = 3, 
+                        byrow = TRUE)
+
+rownames(nombre_matriz) &lt;- c("Row 1", "Row 2")
+colnames(nombre_matriz) &lt;- c("Column 1", "Column 2", "Column 3")
+
+#Eligiendo los elementos de la primera fila, columna 1 y 3
+
+nombre_matriz["Row 1", c("Column 1", "Column 3")]
+```
+
+```
+## Column 1 Column 3 
+##        5        2
+```
+
+---
+#Matriz de tipo lógico
+
+```r
+vec_logico&lt;-c(TRUE, TRUE, FALSE, TRUE)
+matrix(vec_logico,ncol = 2)
+```
+
+```
+##      [,1]  [,2]
+## [1,] TRUE FALSE
+## [2,] TRUE  TRUE
+```
+#De tipo caracter
+
+```r
+my_matrix&lt;-matrix(c("red", "green", "orange", "black"),
+                  ncol = 2)
+```
+
+---
+#DATAFRAMES
+
+Un dataframe o marco de datos son bases de datos de dos dimensiones, con diferentes clases de variables.
+
+- Cadena de caracteres y
+- Numérico y
+- Lógico
+
+&lt;img src="./figs/obs_var.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+#¿Cómo crear un dataframe en R?
+-  Función: data.frame()
+-  Importar bases de datos
+-  Coerción: as.data.frame()
+ 
+---
+###Ejemplo de dataframe 
+
+
+```r
+temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
+humedad &lt;- c(88, 86, 81, 79, 80, 78,71, 69, 78, 82, 85, 83)
+lluvia &lt;- c(72, 33.9, 37.5, 36.6, 31.0, 16.6,1.2, 6.8, 36.8, 30.8, 38.5, 22.7)
+mes &lt;- c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto","Septiembre", "Octubre", "Noviembre", "Diciembre")
+Marco_de_datos &lt;- data.frame(mes,temperatura,humedad,lluvia)
+Marco_de_datos
+```
+
+```
+##           mes temperatura humedad lluvia
+## 1       Enero       20.37      88   72.0
+## 2     Febrero       18.56      86   33.9
+## 3       Marzo       18.40      81   37.5
+## 4       Abril       21.96      79   36.6
+## 5        Mayo       29.53      80   31.0
+## 6       Junio       28.16      78   16.6
+## 7       Julio       36.38      71    1.2
+## 8      Agosto       36.62      69    6.8
+## 9  Septiembre       40.03      78   36.8
+## 10    Octubre       27.59      82   30.8
+## 11  Noviembre       22.15      85   38.5
+## 12  Diciembre       19.85      83   22.7
+```
+
+---
+#LISTAS
+
+```r
+x &lt;- 1:4
+y &lt;- 2:4
+n &lt;- 10
+M &lt;- c(10, 35)
+#LISTA A PARTIR DE VECTORES
+L1 &lt;- list(x, y) 
+L1
+```
+
+```
+## [[1]]
+## [1] 1 2 3 4
+## 
+## [[2]]
+## [1] 2 3 4
+```
+
+```r
+L2 &lt;- list(A=x, B=y)
+L2
+```
+
+```
+## $A
+## [1] 1 2 3 4
+## 
+## $B
+## [1] 2 3 4
+```
+
+```r
+L1
+```
+
+```
+## [[1]]
+## [1] 1 2 3 4
+## 
+## [[2]]
+## [1] 2 3 4
+```
+
+```r
+class(L1)
+```
+
+```
+## [1] "list"
+```
+
+```r
+L1[1]
+```
+
+```
+## [[1]]
+## [1] 1 2 3 4
+```
+
+```r
+L2[2]
+```
+
+```
+## $B
+## [1] 2 3 4
+```
+
+```r
+L2$A
+```
+
+```
+## [1] 1 2 3 4
+```
+
+```r
+L2$A
+```
+
+```
+## [1] 1 2 3 4
+```
+
+```r
+L2$B
+```
+
+```
+## [1] 2 3 4
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
