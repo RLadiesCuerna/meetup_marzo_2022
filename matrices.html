@@ -447,6 +447,13 @@ matrix(vec_logico,ncol = 2)
 ```r
 my_matrix&lt;-matrix(c("red", "green", "orange", "black"),
                   ncol = 2)
+my_matrix
+```
+
+```
+##      [,1]    [,2]    
+## [1,] "red"   "orange"
+## [2,] "green" "black"
 ```
 
 ---
@@ -454,8 +461,8 @@ my_matrix&lt;-matrix(c("red", "green", "orange", "black"),
 
 Un dataframe o marco de datos son bases de datos de dos dimensiones, con diferentes clases de variables.
 
-- Cadena de caracteres y
-- Numérico y
+- Cadena de caracteres y/o
+- Numérico y/o
 - Lógico
 
 &lt;img src="./figs/obs_var.png" width="85%" style="display: block; margin: auto;" /&gt;
@@ -467,8 +474,26 @@ Un dataframe o marco de datos son bases de datos de dos dimensiones, con diferen
 -  Coerción: as.data.frame()
  
 ---
-###Ejemplo de dataframe 
+##Función data.frame()
 
+##Sintaxis
+
+```r
+data.frame(x, row.names = NULL, check.rows = FALSE,
+           check.names = TRUE, fix.empty.names = TRUE,
+           stringsAsFactors = default.stringsAsFactors())
+```
+
+```
+##   x
+## 1 2
+## 2 7
+## 3 3
+## 4 6
+## 5 1
+```
+---
+##Ejemplo
 
 ```r
 temperatura &lt;- c(20.37, 18.56, 18.4, 21.96, 29.53, 28.16,36.38, 36.62, 40.03, 27.59, 22.15, 19.85)
@@ -495,6 +520,46 @@ Marco_de_datos
 ## 12  Diciembre       19.85      83   22.7
 ```
 
+```r
+class(Marco_de_datos)
+```
+
+```
+## [1] "data.frame"
+```
+
+
+---
+## Selección 
+### Con el operador "$"
+&lt;p&gt;
+
+```r
+Marco_de_datos$mes
+```
+
+```
+##  [1] "Enero"      "Febrero"    "Marzo"      "Abril"      "Mayo"      
+##  [6] "Junio"      "Julio"      "Agosto"     "Septiembre" "Octubre"   
+## [11] "Noviembre"  "Diciembre"
+```
+
+```r
+Marco_de_datos$temperatura
+```
+
+```
+##  [1] 20.37 18.56 18.40 21.96 29.53 28.16 36.38 36.62 40.03 27.59 22.15 19.85
+```
+
+```r
+Marco_de_datos$humedad
+```
+
+```
+##  [1] 88 86 81 79 80 78 71 69 78 82 85 83
+```
+
 ---
 #LISTAS
 
@@ -504,7 +569,7 @@ y &lt;- 2:4
 n &lt;- 10
 M &lt;- c(10, 35)
 #LISTA A PARTIR DE VECTORES
-L1 &lt;- list(x, y) 
+L1 &lt;- list(x, y, n, M) 
 L1
 ```
 
@@ -514,7 +579,23 @@ L1
 ## 
 ## [[2]]
 ## [1] 2 3 4
+## 
+## [[3]]
+## [1] 10
+## 
+## [[4]]
+## [1] 10 35
 ```
+
+```r
+class(L1)
+```
+
+```
+## [1] "list"
+```
+---
+###Listas
 
 ```r
 L2 &lt;- list(A=x, B=y)
@@ -530,50 +611,49 @@ L2
 ```
 
 ```r
-L1
-```
-
-```
-## [[1]]
-## [1] 1 2 3 4
-## 
-## [[2]]
-## [1] 2 3 4
-```
-
-```r
-class(L1)
+class(L2)
 ```
 
 ```
 ## [1] "list"
 ```
+---
+#Cómo acceder a los elementos de L1?
 
 ```r
-L1[1]
+L1[[1]]
 ```
 
 ```
-## [[1]]
 ## [1] 1 2 3 4
 ```
 
 ```r
-L2[2]
+L1[[2]]
 ```
 
 ```
-## $B
 ## [1] 2 3 4
 ```
 
 ```r
-L2$A
+L1[[3]]
 ```
 
 ```
-## [1] 1 2 3 4
+## [1] 10
 ```
+
+```r
+L1[[4]]
+```
+
+```
+## [1] 10 35
+```
+
+---
+#Cómo acceder a los elementos de L2?
 
 ```r
 L2$A
@@ -591,6 +671,16 @@ L2$B
 ## [1] 2 3 4
 ```
 
+
+###Ejercicios!!
+---
+
+# Contacto
+
+
+Cristina Alejandra Domínguez Mendoza
+
+cris_ale84@hotmail.com
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
